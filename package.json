@@ -4,7 +4,7 @@
   "description": "Reason helper for jsonrpc",
   "license": "MIT",
   "scripts": {
-    "test": "esy x ReasonJsonRpcTestRunner"
+    "test": "esy x ReasonJsonRpcTestRunner.exe"
   },
   "esy": {
     "build": "dune build --root . -j4",
