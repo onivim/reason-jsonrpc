@@ -1,11 +1,11 @@
 module Request {
 
-    type t = (string, Yojson.Safe.t);
+    type t = (string, Yojson.Safe.json);
 
-    let is = (msg: Yojson.Safe.t) =>
+    let is = (msg: Yojson.Safe.json) =>
         Utility.hasMethod(msg) && !Utility.hasId(msg);
 
-    let parse = (msg: Yojson.Safe.t) => {
+    let parse = (msg: Yojson.Safe.json) => {
         let method = msg
             |> Yojson.Safe.Util.member("method") |> Yojson.Safe.Util.to_string;
 
@@ -16,12 +16,12 @@ module Request {
 }
 
 module Notification {
-    type t = (string, Yojson.Safe.t);
+    type t = (string, Yojson.Safe.json);
 
-    let is = (msg: Yojson.Safe.t) => 
+    let is = (msg: Yojson.Safe.json) => 
         Utility.hasMethod(msg) && Utility.hasId(msg);
 
-    let parse = (msg: Yojson.Safe.t) => {
+    let parse = (msg: Yojson.Safe.json) => {
         let method = msg
             |> Yojson.Safe.Util.member("method") |> Yojson.Safe.Util.to_string;
 
