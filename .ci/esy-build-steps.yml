@@ -7,5 +7,5 @@ steps:
     displayName: 'esy install'
   - script: esy build
     displayName: 'esy build'
-  - script: esy test
-    displayName: "esy test"
+  # - script: esy test
+  #   displayName: 'esy test'
