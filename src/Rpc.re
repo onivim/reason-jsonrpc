@@ -31,18 +31,20 @@ let sendNotification = (rpc: t, method: string, msg: Yojson.Safe.t) => {
 type message =
   | Request(int, Request.t)
   | Notification(Notification.t)
-  | Response(Response.t);
+  | Response
 
 let parse: string => message =
   msg => {
     let p = Yojson.Safe.from_string(msg);
 
-    switch (Notification.is(p), Request.is(p), Response.is(p)) {
-    | (true, _, _) => Notification.parse(p) |> Notification
-    | (_, true, _) =>
+    switch (Notification.is(p), Request.is(p)) {
+    | (true, _) => 
+        let result = Notification.parse(p);
+        Notification(result);
+    | (_, true) =>
       let id = p |> Yojson.Safe.Util.member("id") |> Yojson.Safe.Util.to_int;
       Request(id, Request.parse(p));
-    | _ => Response(UnknownResponse)
+    | _ => Response
     };
   };
 

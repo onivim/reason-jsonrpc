@@ -1,1 +1,1 @@
-Reason_JsonRpc.TestFramework.cli();
+Reason_jsonrpc_test.TestFramework.cli();

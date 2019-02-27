@@ -2,4 +2,4 @@
   (name reason_jsonrpc)
   (public_name reason-jsonrpc)
   (flags (:standard (-w -39)))
-  (libraries yojson))
+  (libraries threads yojson))
