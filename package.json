@@ -1,0 +1,26 @@
+{
+  "name": "reason-jsonrpc",
+  "version": "1.0.0",
+  "description": "Reason helper for jsonrpc",
+  "license": "MIT",
+  "esy": {
+    "build": "dune build --root . -j4",
+    "install": [
+        "esy-installer"
+    ]
+  },
+  "dependencies": {
+    "@opam/dune": "*",
+    "@opam/lwt": "^4.0.0",
+    "ocaml": "~4.7.0",
+    "@opam/merlin": "^3.2.2",
+    "@opam/yojson": "*",
+    "@esy-ocaml/reason": "*",
+    "refmterr": "*",
+    "@reason-native/rely": "*"
+  },
+  "devDependencies": {
+    "@opam/merlin": "^3.2.2",
+    "ocaml": "~4.7.0"
+  }
+}
