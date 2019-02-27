@@ -3,11 +3,14 @@
   "version": "1.0.0",
   "description": "Reason helper for jsonrpc",
   "license": "MIT",
+  "scripts": {
+    "test": "esy x ReasonJsonRpcTestRunner"
+  },
   "esy": {
     "build": "dune build --root . -j4",
     "install": [
-        "esy-installer reason-jsonrpc",
-        "esy-installer reason-jsonrpc-test"
+        "esy-installer reason-jsonrpc.install",
+        "esy-installer reason-jsonrpc-test.install"
     ]
   },
   "dependencies": {
