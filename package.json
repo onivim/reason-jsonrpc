@@ -6,7 +6,8 @@
   "esy": {
     "build": "dune build --root . -j4",
     "install": [
-        "esy-installer"
+        "esy-installer reason-jsonrpc",
+        "esy-installer reason-jsonrpc-test"
     ]
   },
   "dependencies": {
