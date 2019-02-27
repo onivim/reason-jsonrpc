@@ -8,4 +8,4 @@ steps:
   - script: esy build
     displayName: 'esy build'
   - script: esy test
-    displayName: "esy test"
+    displayName: 'esy test'
