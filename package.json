@@ -4,7 +4,7 @@
   "description": "Reason helper for jsonrpc",
   "license": "MIT",
   "scripts": {
-    "test": "esy x ReasonJsonRpcTestRunner"
+    "test": "esy x ReasonJsonRpcTestRunner.exe"
   },
   "esy": {
     "build": "dune build --root . -j4",
@@ -18,7 +18,7 @@
     "@opam/lwt": "^4.0.0",
     "ocaml": "~4.7.0",
     "@opam/merlin": "^3.2.2",
-    "@opam/yojson": "*",
+    "@opam/yojson": "1.5.0",
     "@esy-ocaml/reason": "*",
     "refmterr": "*",
     "@reason-native/rely": "*"
