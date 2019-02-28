@@ -31,19 +31,17 @@ let sendNotification = (rpc: t, method: string, msg: Yojson.Safe.json) => {
 type message =
   | Request(int, Request.t)
   | Notification(Notification.t)
-  | Response
+  | Response;
 
 let parse: string => message =
   msg => {
     let p = Yojson.Safe.from_string(msg);
 
     switch (Notification.is(p), Request.is(p)) {
-    | (true, _) => 
-        Log.debug("--parsing notification");
-        let result = Notification.parse(p);
-        Notification(result);
+    | (true, _) =>
+      let result = Notification.parse(p);
+      Notification(result);
     | (_, true) =>
-      Log.debug("--parsing request");
       let id = p |> Yojson.Safe.Util.member("id") |> Yojson.Safe.Util.to_int;
       Request(id, Request.parse(p));
     | _ => Response
@@ -56,39 +54,46 @@ let start =
 
   set_binary_mode_in(input, true);
   set_binary_mode_out(output, true);
-  let id = Unix.descr_of_in_channel(stdin);
-  while (!rpc.shouldClose) {
-    Thread.wait_read(id);
 
-    let preamble = Preamble.read(input);
-    let len = preamble.contentLength;
-    Log.debug("Message length: " ++ string_of_int(len));
+  let _ =
+    Thread.create(
+      () => {
+        let id = Unix.descr_of_in_channel(stdin);
+        while (!rpc.shouldClose) {
+          Thread.wait_read(id);
 
-    /* Read message */
-    let buffer = Bytes.create(len);
-    let read = ref(0);
-    while (read^ < len) {
-      let n = Pervasives.input(input, buffer, 0, len);
-      read := read^ + n;
-    };
+          let preamble = Preamble.read(input);
+          let len = preamble.contentLength;
+          Log.debug("Message length: " ++ string_of_int(len));
 
-    let str = Bytes.to_string(buffer);
-    Log.debug("Received msg: " ++ str);
+          /* Read message */
+          let buffer = Bytes.create(len);
+          let read = ref(0);
+          while (read^ < len) {
+            let n = Pervasives.input(input, buffer, 0, len);
+            read := read^ + n;
+          };
 
-    let result = parse(str);
-    Log.debug("Parsed message.");
+          let str = Bytes.to_string(buffer);
 
-    switch (result) {
-    | Notification(v) => onNotification(v, rpc)
-    | Request(id, v) =>
-      switch (onRequest(rpc, v)) {
-      | Ok(result) => _sendResponse(rpc, result, id)
-      | Error(msg) => Log.error(msg)
-      | exception (Yojson.Json_error(msg)) => Log.error(msg)
-      }
-    | _ => Log.error("Unhandled message")
-    };
-  };
+          let result = parse(str);
+
+          switch (result) {
+          | Notification(v) => onNotification(v, rpc)
+          | Request(id, v) =>
+            switch (onRequest(rpc, v)) {
+            | Ok(result) => _sendResponse(rpc, result, id)
+            | Error(msg) => Log.error(msg)
+            | exception (Yojson.Json_error(msg)) => Log.error(msg)
+            }
+          | _ => Log.error("Unhandled message")
+          };
+        };
+      },
+      (),
+    );
+
+  rpc;
 };
 
 let stop = (rpc: t) => rpc.shouldClose = true;
