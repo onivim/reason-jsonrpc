@@ -6,15 +6,12 @@ type message =
 type t = {
   input: in_channel,
   output: out_channel,
-
   messageMutex: Mutex.t,
   writeMutex: Mutex.t,
-
   messageHandler: (message, t) => unit,
-
   mutable shouldClose: bool,
   mutable pendingMessages: list(message),
-}
+};
 
 type closeHandler = unit => unit;
 type notificationHandler = (Notification.t, t) => unit;
@@ -60,38 +57,50 @@ let parse: string => message =
     };
   };
 
-let pump = (rpc) => {
-    if (!rpc.shouldClose) {
-   Mutex.lock(rpc.messageMutex);
-   List.iter((v) => rpc.messageHandler(v, rpc), rpc.pendingMessages);
-   rpc.pendingMessages = [];
-   Mutex.unlock(rpc.messageMutex);
-    };
-}
+let pump = rpc =>
+  if (!rpc.shouldClose) {
+    Mutex.lock(rpc.messageMutex);
+    List.iter(v => rpc.messageHandler(v, rpc), rpc.pendingMessages);
+    rpc.pendingMessages = [];
+    Mutex.unlock(rpc.messageMutex);
+  };
 
 let start =
-    (~onNotification: notificationHandler, ~onRequest: requestHandler, ~onClose: closeHandler, input: in_channel, output: out_channel) => {
-
+    (
+      ~onNotification: notificationHandler,
+      ~onRequest: requestHandler,
+      ~onClose: closeHandler,
+      input: in_channel,
+      output: out_channel,
+    ) => {
   set_binary_mode_in(input, true);
   set_binary_mode_out(output, true);
 
   let messageHandler = (msg, rpc) => {
-          switch (msg) {
-          | Notification(v) => onNotification(v, rpc)
-          | Request(id, v) =>
-            switch (onRequest(v, rpc)) {
-            | Ok(result) => _sendResponse(rpc, result, id)
-            | Error(msg) => Log.error(msg)
-            | exception (Yojson.Json_error(msg)) => Log.error(msg)
-            }
-          | _ => Log.error("Unhandled message")
-      };
-  }
+    switch (msg) {
+    | Notification(v) => onNotification(v, rpc)
+    | Request(id, v) =>
+      switch (onRequest(v, rpc)) {
+      | Ok(result) => _sendResponse(rpc, result, id)
+      | Error(msg) => Log.error(msg)
+      | exception (Yojson.Json_error(msg)) => Log.error(msg)
+      }
+    | _ => Log.error("Unhandled message")
+    };
+  };
 
   let messageMutex = Mutex.create();
   let writeMutex = Mutex.create();
 
-  let rpc: t = {input, output, messageMutex, writeMutex, messageHandler, shouldClose: false, pendingMessages: []};
+  let rpc: t = {
+    input,
+    output,
+    messageMutex,
+    writeMutex,
+    messageHandler,
+    shouldClose: false,
+    pendingMessages: [],
+  };
 
   let queueMessage = (m: message) => {
     Mutex.lock(messageMutex);
@@ -106,32 +115,29 @@ let start =
         while (!rpc.shouldClose) {
           Thread.wait_read(id);
 
-          switch(Preamble.read(input)) {
-          | exception End_of_file => {
-              rpc.shouldClose = true;
+          switch (Preamble.read(input)) {
+          | exception End_of_file => rpc.shouldClose = true
+          | preamble =>
+            let len = preamble.contentLength;
+            Log.debug("Message length: " ++ string_of_int(len));
+
+            /* Read message */
+            let buffer = Bytes.create(len);
+            let read = ref(0);
+            while (read^ < len) {
+              let n = Pervasives.input(input, buffer, 0, len);
+              read := read^ + n;
+            };
+
+            let str = Bytes.to_string(buffer);
+
+            let result = parse(str);
+
+            queueMessage(result);
+            ();
           };
-          | preamble => {
-          let len = preamble.contentLength;
-          Log.debug("Message length: " ++ string_of_int(len));
-
-          /* Read message */
-          let buffer = Bytes.create(len);
-          let read = ref(0);
-          while (read^ < len) {
-            let n = Pervasives.input(input, buffer, 0, len);
-            read := read^ + n;
-          };
-
-          let str = Bytes.to_string(buffer);
-
-          let result = parse(str);
-
-          queueMessage(result);
-          ();
-        }
-          };
-      }
-    onClose();
+        };
+        onClose();
       },
       (),
     );
