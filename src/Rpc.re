@@ -1,17 +1,27 @@
+module IntMap =
+  Map.Make({
+    type t = int;
+    let compare = compare;
+  });
+
 type message =
   | Request(int, Request.t)
   | Notification(Notification.t)
-  | Response;
+  | Response(int, Response.t)
+  | Unknown;
 
 type t = {
   input: in_channel,
   output: out_channel,
+  mutable nextRequestId: int,
+  mutable pendingRequests: IntMap.t(responseHandler),
   messageMutex: Mutex.t,
   writeMutex: Mutex.t,
   messageHandler: (message, t) => unit,
   mutable shouldClose: bool,
   mutable pendingMessages: list(message),
-};
+}
+and responseHandler = (Response.t, t) => unit;
 
 type closeHandler = unit => unit;
 type notificationHandler = (Notification.t, t) => unit;
@@ -42,18 +52,34 @@ let sendNotification = (rpc, method, msg) => {
   _send(rpc, response);
 };
 
-let parse: string => message =
+let sendRequest = (rpc, method, msg, cb) => {
+  let id = rpc.nextRequestId;
+  rpc.nextRequestId = rpc.nextRequestId + 1;
+  rpc.pendingRequests = IntMap.add(id, cb, rpc.pendingRequests);
+  let request =
+    `Assoc([
+      ("id", `Int(id)),
+      ("method", `String(method)),
+      ("params", msg),
+    ]);
+  _send(rpc, request);
+};
+
+let _parse: string => message =
   msg => {
     let p = Yojson.Safe.from_string(msg);
 
-    switch (Notification.is(p), Request.is(p)) {
-    | (true, _) =>
+    switch (Notification.is(p), Request.is(p), Response.is(p)) {
+    | (true, _, _) =>
       let result = Notification.parse(p);
       Notification(result);
-    | (_, true) =>
+    | (_, true, _) =>
       let id = p |> Yojson.Safe.Util.member("id") |> Yojson.Safe.Util.to_int;
       Request(id, Request.parse(p));
-    | _ => Response
+    | (_, _, true) =>
+      let id = p |> Yojson.Safe.Util.member("id") |> Yojson.Safe.Util.to_int;
+      Response(id, Response.parse(p));
+    | _ => Unknown
     };
   };
 
@@ -85,6 +111,14 @@ let start =
       | Error(msg) => Log.error(msg)
       | exception (Yojson.Json_error(msg)) => Log.error(msg)
       }
+    | Response(id, r) =>
+      let cb = IntMap.find_opt(id, rpc.pendingRequests);
+      switch (cb) {
+      | Some(c) => c(r, rpc)
+      | None => ()
+      };
+
+      rpc.pendingRequests = IntMap.remove(id, rpc.pendingRequests);
     | _ => Log.error("Unhandled message")
     };
   };
@@ -98,8 +132,10 @@ let start =
     messageMutex,
     writeMutex,
     messageHandler,
+    nextRequestId: 0,
     shouldClose: false,
     pendingMessages: [],
+    pendingRequests: IntMap.empty,
   };
 
   let queueMessage = (m: message) => {
@@ -131,7 +167,7 @@ let start =
 
             let str = Bytes.to_string(buffer);
 
-            let result = parse(str);
+            let result = _parse(str);
 
             queueMessage(result);
             ();
