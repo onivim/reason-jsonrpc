@@ -1,5 +1,8 @@
-
-module IntMap = Map.Make({type t = int; let compare = compare; });
+module IntMap =
+  Map.Make({
+    type t = int;
+    let compare = compare;
+  });
 
 type message =
   | Request(int, Request.t)
@@ -19,7 +22,6 @@ type t = {
   mutable pendingMessages: list(message),
 }
 and responseHandler = (Response.t, t) => unit;
-
 
 type closeHandler = unit => unit;
 type notificationHandler = (Notification.t, t) => unit;
@@ -51,11 +53,16 @@ let sendNotification = (rpc, method, msg) => {
 };
 
 let sendRequest = (rpc, method, msg, cb) => {
-    let id = rpc.nextRequestId;
-    rpc.nextRequestId = rpc.nextRequestId + 1;
-    rpc.pendingRequests = IntMap.add(id, cb, rpc.pendingRequests);
-    let request = `Assoc([("id", `Int(id)), ("method", `String(method)), ("params", msg)]);
-    _send(rpc, request);
+  let id = rpc.nextRequestId;
+  rpc.nextRequestId = rpc.nextRequestId + 1;
+  rpc.pendingRequests = IntMap.add(id, cb, rpc.pendingRequests);
+  let request =
+    `Assoc([
+      ("id", `Int(id)),
+      ("method", `String(method)),
+      ("params", msg),
+    ]);
+  _send(rpc, request);
 };
 
 let _parse: string => message =
@@ -104,15 +111,14 @@ let start =
       | Error(msg) => Log.error(msg)
       | exception (Yojson.Json_error(msg)) => Log.error(msg)
       }
-    | Response(id, r) => {
-        let cb = IntMap.find_opt(id, rpc.pendingRequests);
-        switch (cb) {
-        | Some(c) => c(r, rpc);
-        | None => ();
-        }
+    | Response(id, r) =>
+      let cb = IntMap.find_opt(id, rpc.pendingRequests);
+      switch (cb) {
+      | Some(c) => c(r, rpc)
+      | None => ()
+      };
 
-        rpc.pendingRequests = IntMap.remove(id, rpc.pendingRequests);
-    }
+      rpc.pendingRequests = IntMap.remove(id, rpc.pendingRequests);
     | _ => Log.error("Unhandled message")
     };
   };
@@ -126,7 +132,7 @@ let start =
     messageMutex,
     writeMutex,
     messageHandler,
-nextRequestId: 0,
+    nextRequestId: 0,
     shouldClose: false,
     pendingMessages: [],
     pendingRequests: IntMap.empty,
