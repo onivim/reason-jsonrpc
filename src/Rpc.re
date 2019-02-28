@@ -4,6 +4,9 @@ type t = {
   mutable shouldClose: bool,
 };
 
+type notificationHandler = (Notification.t, t) => unit;
+type requestHandler = (Request.t, t) => result(Yojson.Safe.json, string);
+
 let _send = (rpc, json: Yojson.Safe.json) => {
   let str = Yojson.Safe.to_string(json);
 
@@ -47,7 +50,7 @@ let parse: string => message =
   };
 
 let start =
-    (~onNotification, ~onRequest, input: in_channel, output: out_channel) => {
+    (~onNotification: notificationHandler, ~onRequest: requestHandler, input: in_channel, output: out_channel) => {
   let rpc: t = {input, output, shouldClose: false};
 
   set_binary_mode_in(input, true);
@@ -79,7 +82,7 @@ let start =
           switch (result) {
           | Notification(v) => onNotification(v, rpc)
           | Request(id, v) =>
-            switch (onRequest(rpc, v)) {
+            switch (onRequest(v, rpc)) {
             | Ok(result) => _sendResponse(rpc, result, id)
             | Error(msg) => Log.error(msg)
             | exception (Yojson.Json_error(msg)) => Log.error(msg)
