@@ -16,6 +16,10 @@ let start:
 
 let sendNotification: (t, string, Yojson.Safe.json) => unit;
 
+type responseHandler = (Response.t, t) => unit;
+
+let sendRequest: (t, string, Yojson.Safe.json, responseHandler) => unit;
+
 /*
  * Calling 'pump' is required to handle pending notifications and requests
  */
