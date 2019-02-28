@@ -39,9 +39,11 @@ let parse: string => message =
 
     switch (Notification.is(p), Request.is(p)) {
     | (true, _) => 
+        Log.debug("--parsing notification");
         let result = Notification.parse(p);
         Notification(result);
     | (_, true) =>
+      Log.debug("--parsing request");
       let id = p |> Yojson.Safe.Util.member("id") |> Yojson.Safe.Util.to_int;
       Request(id, Request.parse(p));
     | _ => Response
@@ -74,6 +76,7 @@ let start =
     Log.debug("Received msg: " ++ str);
 
     let result = parse(str);
+    Log.debug("Parsed message.");
 
     switch (result) {
     | Notification(v) => onNotification(v, rpc)
