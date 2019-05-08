@@ -155,7 +155,6 @@ let start =
           | exception End_of_file => rpc.shouldClose = true
           | preamble =>
             let len = preamble.contentLength;
-            Log.debug("Message length: " ++ string_of_int(len));
 
             /* Read message */
             let buffer = Bytes.create(len);
