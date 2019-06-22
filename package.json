@@ -1,6 +1,6 @@
 {
   "name": "reason-jsonrpc",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "Reason helper for jsonrpc",
   "license": "MIT",
   "scripts": {
