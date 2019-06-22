@@ -13,7 +13,6 @@ let parse = (msg: Yojson.Safe.json) => {
       : {
         let error =
           msg |> Yojson.Safe.Util.member("error") |> Yojson.Safe.to_string;
-        Log.error(error);
         Error(error);
       };
 
