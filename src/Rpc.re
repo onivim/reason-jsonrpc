@@ -8,7 +8,7 @@ type message =
   | Request(int, Request.t)
   | Notification(Notification.t)
   | Response(int, Response.t)
-  | Unknown;
+  | Unknown(string);
 
 type t = {
   input: in_channel,
@@ -26,6 +26,7 @@ and responseHandler = (Response.t, t) => unit;
 type closeHandler = unit => unit;
 type notificationHandler = (Notification.t, t) => unit;
 type requestHandler = (Request.t, t) => result(Yojson.Safe.json, string);
+type errorMessageHandler = string => unit;
 
 let _send = (rpc, json: Yojson.Safe.json) => {
   let str = Yojson.Safe.to_string(json);
@@ -79,7 +80,7 @@ let _parse: string => message =
     | (_, _, true) =>
       let id = p |> Yojson.Safe.Util.member("id") |> Yojson.Safe.Util.to_int;
       Response(id, Response.parse(p));
-    | _ => Unknown
+    | _ => Unknown(msg)
     };
   };
 
@@ -91,11 +92,14 @@ let pump = rpc =>
     Mutex.unlock(rpc.messageMutex);
   };
 
+let noop = (_) => ();
+
 let start =
     (
       ~onNotification: notificationHandler,
       ~onRequest: requestHandler,
       ~onClose: closeHandler,
+      ~onError=noop,
       input: in_channel,
       output: out_channel,
     ) => {
@@ -108,8 +112,8 @@ let start =
     | Request(id, v) =>
       switch (onRequest(v, rpc)) {
       | Ok(result) => _sendResponse(rpc, result, id)
-      | Error(msg) => Log.error(msg)
-      | exception (Yojson.Json_error(msg)) => Log.error(msg)
+      | Error(msg) => onError(msg)
+      | exception (Yojson.Json_error(msg)) => onError(msg);
       }
     | Response(id, r) =>
       let cb = IntMap.find_opt(id, rpc.pendingRequests);
@@ -119,7 +123,7 @@ let start =
       };
 
       rpc.pendingRequests = IntMap.remove(id, rpc.pendingRequests);
-    | _ => Log.error("Unhandled message")
+    | Unknown(payload) => onError("Unknown message: " ++ payload);
     };
   };
 

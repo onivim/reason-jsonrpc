@@ -3,12 +3,14 @@ type t;
 type notificationHandler = (Notification.t, t) => unit;
 type requestHandler = (Request.t, t) => result(Yojson.Safe.json, string);
 type closeHandler = unit => unit;
+type errorMessageHandler = string => unit;
 
 let start:
   (
     ~onNotification: notificationHandler,
     ~onRequest: requestHandler,
     ~onClose: closeHandler,
+    ~onError: errorMessageHandler=?,
     in_channel,
     out_channel
   ) =>
