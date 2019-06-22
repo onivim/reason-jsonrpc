@@ -26,6 +26,7 @@ and responseHandler = (Response.t, t) => unit;
 type closeHandler = unit => unit;
 type notificationHandler = (Notification.t, t) => unit;
 type requestHandler = (Request.t, t) => result(Yojson.Safe.json, string);
+type errorMessageHandler = string => unit;
 
 let _send = (rpc, json: Yojson.Safe.json) => {
   let str = Yojson.Safe.to_string(json);
