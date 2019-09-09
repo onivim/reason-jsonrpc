@@ -1,12 +1,12 @@
 type t = {
   method: string,
-  params: Yojson.Safe.json,
+  params: Yojson.Safe.t,
 };
 
-let is = (msg: Yojson.Safe.json) =>
+let is = (msg: Yojson.Safe.t) =>
   Utility.hasMethod(msg) && !Utility.hasId(msg);
 
-let parse = (msg: Yojson.Safe.json) => {
+let parse = (msg: Yojson.Safe.t) => {
   let method =
     msg |> Yojson.Safe.Util.member("method") |> Yojson.Safe.Util.to_string;
 

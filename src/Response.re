@@ -1,9 +1,9 @@
-type t = result(Yojson.Safe.json, string);
+type t = result(Yojson.Safe.t, string);
 
-let is = (msg: Yojson.Safe.json) =>
+let is = (msg: Yojson.Safe.t) =>
   !Utility.hasMethod(msg) && Utility.hasId(msg);
 
-let parse = (msg: Yojson.Safe.json) => {
+let parse = (msg: Yojson.Safe.t) => {
   let result =
     Utility.hasResult(msg)
       ? {

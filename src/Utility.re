@@ -1,6 +1,6 @@
 /* Utility methods for working with Yojson */
 
-let hasField = (f: string, msg: Yojson.Safe.json) => {
+let hasField = (f: string, msg: Yojson.Safe.t) => {
   let v = Yojson.Safe.Util.member(f, msg);
 
   switch (v) {
