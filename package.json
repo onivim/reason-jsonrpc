@@ -16,7 +16,7 @@
   "dependencies": {
     "@opam/dune": "*",
     "@opam/lwt": "^4.0.0",
-    "ocaml": "~4.7.0",
+    "ocaml": "^4.7.0",
     "@opam/merlin": "^3.2.2",
     "@opam/yojson": "^1.7.0",
     "@esy-ocaml/reason": "*",
@@ -25,6 +25,6 @@
   },
   "devDependencies": {
     "@opam/merlin": "^3.2.2",
-    "ocaml": "~4.7.0"
+    "ocaml": "^4.7.0"
   }
 }
