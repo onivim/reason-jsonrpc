@@ -164,7 +164,7 @@ let start =
             let buffer = Bytes.create(len);
             let read = ref(0);
             while (read^ < len) {
-              let n = Pervasives.input(input, buffer, read^, len - read^);
+              let n = Stdlib.input(input, buffer, read^, len - read^);
               read := read^ + n;
             };
 
