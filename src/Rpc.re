@@ -18,7 +18,6 @@ type t = {
   writeMutex: Mutex.t,
   messageHandler: (message, t) => unit,
   mutable shouldClose: bool,
-  mutable pendingMessages: list(message),
 }
 and responseHandler = (Response.t, t) => unit;
 
@@ -133,7 +132,6 @@ let start =
     messageHandler,
     nextRequestId: 0,
     shouldClose: false,
-    pendingMessages: [],
     pendingRequests: IntMap.empty,
   };
 
