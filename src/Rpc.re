@@ -15,7 +15,6 @@ type t = {
   output: out_channel,
   mutable nextRequestId: int,
   mutable pendingRequests: IntMap.t(responseHandler),
-  messageMutex: Mutex.t,
   writeMutex: Mutex.t,
   messageHandler: (message, t) => unit,
   mutable shouldClose: bool,
@@ -27,6 +26,7 @@ type closeHandler = unit => unit;
 type notificationHandler = (Notification.t, t) => unit;
 type requestHandler = (Request.t, t) => result(Yojson.Safe.t, string);
 type errorMessageHandler = string => unit;
+type scheduler = (unit => unit) => unit;
 
 let _send = (rpc, json: Yojson.Safe.t) => {
   let str = Yojson.Safe.to_string(json);
@@ -84,15 +84,10 @@ let _parse: string => message =
     };
   };
 
-let pump = rpc =>
-  if (!rpc.shouldClose) {
-    Mutex.lock(rpc.messageMutex);
-    List.iter(v => rpc.messageHandler(v, rpc), rpc.pendingMessages);
-    rpc.pendingMessages = [];
-    Mutex.unlock(rpc.messageMutex);
-  };
-
 let noop = (_) => ();
+
+// Default schedule implementation - NOT thread safe.
+let defaultScheduler = (f) => f();
 
 let start =
     (
@@ -100,6 +95,8 @@ let start =
       ~onRequest: requestHandler,
       ~onClose: closeHandler,
       ~onError=noop,
+      // Default schedule: NOT thread safe!
+      ~scheduler=defaultScheduler,
       input: in_channel,
       output: out_channel,
     ) => {
@@ -127,25 +124,17 @@ let start =
     };
   };
 
-  let messageMutex = Mutex.create();
   let writeMutex = Mutex.create();
 
   let rpc: t = {
     input,
     output,
-    messageMutex,
     writeMutex,
     messageHandler,
     nextRequestId: 0,
     shouldClose: false,
     pendingMessages: [],
     pendingRequests: IntMap.empty,
-  };
-
-  let queueMessage = (m: message) => {
-    Mutex.lock(messageMutex);
-    rpc.pendingMessages = [m, ...rpc.pendingMessages];
-    Mutex.unlock(messageMutex);
   };
 
   let _ =
@@ -171,7 +160,7 @@ let start =
             let str = Bytes.to_string(buffer);
             let result = _parse(str);
 
-            queueMessage(result);
+            scheduler(() => rpc.messageHandler(result, rpc));
             ();
           };
         };
