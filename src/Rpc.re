@@ -1,3 +1,5 @@
+module Log = (val Timber.withNamespace("JSON-RPC"));
+
 module IntMap =
   Map.Make({
     type t = int;
@@ -29,6 +31,8 @@ type scheduler = (unit => unit) => unit;
 
 let _send = (rpc, json: Yojson.Safe.t) => {
   let str = Yojson.Safe.to_string(json);
+
+  Log.debugf(m => m("%s", str));
 
   let length = String.length(str);
   let contentLengthString =
