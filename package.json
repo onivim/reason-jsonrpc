@@ -21,7 +21,11 @@
     "@opam/yojson": "^1.7.0",
     "@esy-ocaml/reason": "*",
     "refmterr": "*",
-    "@reason-native/rely": "*"
+    "@reason-native/rely": "*",
+    "timber": "*"
+  },
+  "resolutions": {
+    "timber": "glennsl/timber#37ffa07"
   },
   "devDependencies": {
     "@opam/merlin": "^3.2.2",
