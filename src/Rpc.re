@@ -31,6 +31,7 @@ type scheduler = (unit => unit) => unit;
 
 let _send = (rpc, json: Yojson.Safe.t) => {
   let str = Yojson.Safe.to_string(json);
+  Log.debugf(m => m("Sending: %s\n", str));
 
   let length = String.length(str);
   let contentLengthString =
@@ -160,9 +161,10 @@ let start =
             let str = Bytes.to_string(buffer);
             let result = _parse(str);
 
-            Log.debugf(m => m("%s", str));
-
-            scheduler(() => rpc.messageHandler(result, rpc));
+            scheduler(() => {
+              Log.debugf(m => m("Received: %s", str));
+              rpc.messageHandler(result, rpc)
+            });
           };
         };
         onClose();
