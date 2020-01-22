@@ -1,4 +1,4 @@
-module Log = (val Timber.withNamespace("JSON-RPC"));
+module Log = (val Timber.Log.withNamespace("JSON-RPC"));
 
 module IntMap =
   Map.Make({

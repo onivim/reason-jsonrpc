@@ -1,14 +1,14 @@
 {
-  "checksum": "1345a80f7598ada5778e0efc1307ea97",
+  "checksum": "25e6807d0d516f1d90160b791891941a",
   "root": "reason-jsonrpc@link-dev:./package.json",
   "node": {
-    "timber@github:glennsl/timber#37ffa07@d41d8cd9": {
-      "id": "timber@github:glennsl/timber#37ffa07@d41d8cd9",
+    "timber@github:glennsl/timber#ae065bb@d41d8cd9": {
+      "id": "timber@github:glennsl/timber#ae065bb@d41d8cd9",
       "name": "timber",
-      "version": "github:glennsl/timber#37ffa07",
+      "version": "github:glennsl/timber#ae065bb",
       "source": {
         "type": "install",
-        "source": [ "github:glennsl/timber#37ffa07" ]
+        "source": [ "github:glennsl/timber#ae065bb" ]
       },
       "overrides": [],
       "dependencies": [
@@ -50,7 +50,7 @@
       },
       "overrides": [],
       "dependencies": [
-        "timber@github:glennsl/timber#37ffa07@d41d8cd9",
+        "timber@github:glennsl/timber#ae065bb@d41d8cd9",
         "refmterr@3.3.0@d41d8cd9", "ocaml@4.8.1000@d41d8cd9",
         "@reason-native/rely@3.1.0@d41d8cd9",
         "@opam/yojson@opam:1.7.0@7056d985",
