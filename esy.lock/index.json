@@ -1,79 +1,7 @@
 {
-  "checksum": "87afee0e1d3e7f975da08cdefed38fa9",
+  "checksum": "19795d58810314add7a4c809269fec50",
   "root": "reason-jsonrpc@link-dev:./package.json",
   "node": {
-    "to-fast-properties@1.0.3@d41d8cd9": {
-      "id": "to-fast-properties@1.0.3@d41d8cd9",
-      "name": "to-fast-properties",
-      "version": "1.0.3",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/to-fast-properties/-/to-fast-properties-1.0.3.tgz#sha1:b83571fa4d8c25b82e231b06e3a3055de4ca1a47"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
-    "timber@1.3.0@d41d8cd9": {
-      "id": "timber@1.3.0@d41d8cd9",
-      "name": "timber",
-      "version": "1.3.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/timber/-/timber-1.3.0.tgz#sha1:5bdf85a4054dfeba0a79a0c57e9b1bee25b8218f"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [
-        "babel-runtime@6.26.0@d41d8cd9", "babel-eslint@7.2.3@d41d8cd9"
-      ],
-      "devDependencies": []
-    },
-    "supports-color@2.0.0@d41d8cd9": {
-      "id": "supports-color@2.0.0@d41d8cd9",
-      "name": "supports-color",
-      "version": "2.0.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/supports-color/-/supports-color-2.0.0.tgz#sha1:535d045ce6b6363fa40117084629995e9df324c7"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
-    "strip-ansi@3.0.1@d41d8cd9": {
-      "id": "strip-ansi@3.0.1@d41d8cd9",
-      "name": "strip-ansi",
-      "version": "3.0.1",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/strip-ansi/-/strip-ansi-3.0.1.tgz#sha1:6a385fb8853d952d5ff05d0e8aaf94278dc63dcf"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [ "ansi-regex@2.1.1@d41d8cd9" ],
-      "devDependencies": []
-    },
-    "regenerator-runtime@0.11.1@d41d8cd9": {
-      "id": "regenerator-runtime@0.11.1@d41d8cd9",
-      "name": "regenerator-runtime",
-      "version": "0.11.1",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.11.1.tgz#sha1:be05ad7f9bf7d22e056f9726cee5017fbf19e2e9"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
     "refmterr@3.3.0@d41d8cd9": {
       "id": "refmterr@3.3.0@d41d8cd9",
       "name": "refmterr",
@@ -105,11 +33,12 @@
       },
       "overrides": [],
       "dependencies": [
-        "timber@1.3.0@d41d8cd9", "refmterr@3.3.0@d41d8cd9",
-        "ocaml@4.8.1000@d41d8cd9", "@reason-native/rely@3.2.1@d41d8cd9",
+        "refmterr@3.3.0@d41d8cd9", "ocaml@4.8.1000@d41d8cd9",
+        "@reason-native/rely@3.2.1@d41d8cd9",
         "@opam/yojson@opam:1.7.0@7056d985",
         "@opam/merlin@opam:3.3.3@d653b06a", "@opam/lwt@opam:4.5.0@677655b4",
-        "@opam/dune@opam:2.3.1@b10b59bf", "@esy-ocaml/reason@3.5.2@d41d8cd9"
+        "@opam/dune@opam:2.3.1@b10b59bf", "@glennsl/timber@1.0.0@d41d8cd9",
+        "@esy-ocaml/reason@3.5.2@d41d8cd9"
       ],
       "devDependencies": [
         "ocaml@4.8.1000@d41d8cd9", "@opam/merlin@opam:3.3.3@d653b06a"
@@ -123,321 +52,6 @@
         "type": "install",
         "source": [
           "archive:https://registry.npmjs.org/ocaml/-/ocaml-4.8.1000.tgz#sha1:abc435b5d4ddea2acba8b2df7efb81e2d1690db1"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
-    "ms@2.0.0@d41d8cd9": {
-      "id": "ms@2.0.0@d41d8cd9",
-      "name": "ms",
-      "version": "2.0.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/ms/-/ms-2.0.0.tgz#sha1:5608aeadfc00be6c2901df5f9861788de0d597c8"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
-    "loose-envify@1.4.0@d41d8cd9": {
-      "id": "loose-envify@1.4.0@d41d8cd9",
-      "name": "loose-envify",
-      "version": "1.4.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/loose-envify/-/loose-envify-1.4.0.tgz#sha1:71ee51fa7be4caec1a63839f7e682d8132d30caf"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [ "js-tokens@3.0.2@d41d8cd9" ],
-      "devDependencies": []
-    },
-    "lodash@4.17.15@d41d8cd9": {
-      "id": "lodash@4.17.15@d41d8cd9",
-      "name": "lodash",
-      "version": "4.17.15",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/lodash/-/lodash-4.17.15.tgz#sha1:b447f6670a0455bbfeedd11392eff330ea097548"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
-    "js-tokens@3.0.2@d41d8cd9": {
-      "id": "js-tokens@3.0.2@d41d8cd9",
-      "name": "js-tokens",
-      "version": "3.0.2",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/js-tokens/-/js-tokens-3.0.2.tgz#sha1:9866df395102130e38f7f996bceb65443209c25b"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
-    "invariant@2.2.4@d41d8cd9": {
-      "id": "invariant@2.2.4@d41d8cd9",
-      "name": "invariant",
-      "version": "2.2.4",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/invariant/-/invariant-2.2.4.tgz#sha1:610f3c92c9359ce1db616e538008d23ff35158e6"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [ "loose-envify@1.4.0@d41d8cd9" ],
-      "devDependencies": []
-    },
-    "has-ansi@2.0.0@d41d8cd9": {
-      "id": "has-ansi@2.0.0@d41d8cd9",
-      "name": "has-ansi",
-      "version": "2.0.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/has-ansi/-/has-ansi-2.0.0.tgz#sha1:34f5049ce1ecdf2b0649af3ef24e45ed35416d91"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [ "ansi-regex@2.1.1@d41d8cd9" ],
-      "devDependencies": []
-    },
-    "globals@9.18.0@d41d8cd9": {
-      "id": "globals@9.18.0@d41d8cd9",
-      "name": "globals",
-      "version": "9.18.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/globals/-/globals-9.18.0.tgz#sha1:aa3896b3e69b487f17e31ed2143d69a8e30c2d8a"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
-    "esutils@2.0.3@d41d8cd9": {
-      "id": "esutils@2.0.3@d41d8cd9",
-      "name": "esutils",
-      "version": "2.0.3",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/esutils/-/esutils-2.0.3.tgz#sha1:74d2eb4de0b8da1293711910d50775b9b710ef64"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
-    "escape-string-regexp@1.0.5@d41d8cd9": {
-      "id": "escape-string-regexp@1.0.5@d41d8cd9",
-      "name": "escape-string-regexp",
-      "version": "1.0.5",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#sha1:1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
-    "debug@2.6.9@d41d8cd9": {
-      "id": "debug@2.6.9@d41d8cd9",
-      "name": "debug",
-      "version": "2.6.9",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/debug/-/debug-2.6.9.tgz#sha1:5d128515df134ff327e90a4c93f4e077a536341f"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [ "ms@2.0.0@d41d8cd9" ],
-      "devDependencies": []
-    },
-    "core-js@2.6.11@d41d8cd9": {
-      "id": "core-js@2.6.11@d41d8cd9",
-      "name": "core-js",
-      "version": "2.6.11",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/core-js/-/core-js-2.6.11.tgz#sha1:38831469f9922bded8ee21c9dc46985e0399308c"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
-    "chalk@1.1.3@d41d8cd9": {
-      "id": "chalk@1.1.3@d41d8cd9",
-      "name": "chalk",
-      "version": "1.1.3",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/chalk/-/chalk-1.1.3.tgz#sha1:a8115c55e4a702fe4d150abd3872822a7e09fc98"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [
-        "supports-color@2.0.0@d41d8cd9", "strip-ansi@3.0.1@d41d8cd9",
-        "has-ansi@2.0.0@d41d8cd9", "escape-string-regexp@1.0.5@d41d8cd9",
-        "ansi-styles@2.2.1@d41d8cd9"
-      ],
-      "devDependencies": []
-    },
-    "babylon@6.18.0@d41d8cd9": {
-      "id": "babylon@6.18.0@d41d8cd9",
-      "name": "babylon",
-      "version": "6.18.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/babylon/-/babylon-6.18.0.tgz#sha1:af2f3b88fa6f5c1e4c634d1a0f8eac4f55b395e3"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
-    "babel-types@6.26.0@d41d8cd9": {
-      "id": "babel-types@6.26.0@d41d8cd9",
-      "name": "babel-types",
-      "version": "6.26.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/babel-types/-/babel-types-6.26.0.tgz#sha1:a3b073f94ab49eb6fa55cd65227a334380632497"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [
-        "to-fast-properties@1.0.3@d41d8cd9", "lodash@4.17.15@d41d8cd9",
-        "esutils@2.0.3@d41d8cd9", "babel-runtime@6.26.0@d41d8cd9"
-      ],
-      "devDependencies": []
-    },
-    "babel-traverse@6.26.0@d41d8cd9": {
-      "id": "babel-traverse@6.26.0@d41d8cd9",
-      "name": "babel-traverse",
-      "version": "6.26.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/babel-traverse/-/babel-traverse-6.26.0.tgz#sha1:46a9cbd7edcc62c8e5c064e2d2d8d0f4035766ee"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [
-        "lodash@4.17.15@d41d8cd9", "invariant@2.2.4@d41d8cd9",
-        "globals@9.18.0@d41d8cd9", "debug@2.6.9@d41d8cd9",
-        "babylon@6.18.0@d41d8cd9", "babel-types@6.26.0@d41d8cd9",
-        "babel-runtime@6.26.0@d41d8cd9", "babel-messages@6.23.0@d41d8cd9",
-        "babel-code-frame@6.26.0@d41d8cd9"
-      ],
-      "devDependencies": []
-    },
-    "babel-runtime@6.26.0@d41d8cd9": {
-      "id": "babel-runtime@6.26.0@d41d8cd9",
-      "name": "babel-runtime",
-      "version": "6.26.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/babel-runtime/-/babel-runtime-6.26.0.tgz#sha1:965c7058668e82b55d7bfe04ff2337bc8b5647fe"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [
-        "regenerator-runtime@0.11.1@d41d8cd9", "core-js@2.6.11@d41d8cd9"
-      ],
-      "devDependencies": []
-    },
-    "babel-messages@6.23.0@d41d8cd9": {
-      "id": "babel-messages@6.23.0@d41d8cd9",
-      "name": "babel-messages",
-      "version": "6.23.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/babel-messages/-/babel-messages-6.23.0.tgz#sha1:f3cdf4703858035b2a2951c6ec5edf6c62f2630e"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [ "babel-runtime@6.26.0@d41d8cd9" ],
-      "devDependencies": []
-    },
-    "babel-eslint@7.2.3@d41d8cd9": {
-      "id": "babel-eslint@7.2.3@d41d8cd9",
-      "name": "babel-eslint",
-      "version": "7.2.3",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/babel-eslint/-/babel-eslint-7.2.3.tgz#sha1:b2fe2d80126470f5c19442dc757253a897710827"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [
-        "babylon@6.18.0@d41d8cd9", "babel-types@6.26.0@d41d8cd9",
-        "babel-traverse@6.26.0@d41d8cd9", "babel-code-frame@6.26.0@d41d8cd9"
-      ],
-      "devDependencies": []
-    },
-    "babel-code-frame@6.26.0@d41d8cd9": {
-      "id": "babel-code-frame@6.26.0@d41d8cd9",
-      "name": "babel-code-frame",
-      "version": "6.26.0",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/babel-code-frame/-/babel-code-frame-6.26.0.tgz#sha1:63fd43f7dc1e3bb7ce35947db8fe369a3f58c74b"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [
-        "js-tokens@3.0.2@d41d8cd9", "esutils@2.0.3@d41d8cd9",
-        "chalk@1.1.3@d41d8cd9"
-      ],
-      "devDependencies": []
-    },
-    "ansi-styles@2.2.1@d41d8cd9": {
-      "id": "ansi-styles@2.2.1@d41d8cd9",
-      "name": "ansi-styles",
-      "version": "2.2.1",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/ansi-styles/-/ansi-styles-2.2.1.tgz#sha1:b432dd3358b634cf75e1e4664368240533c1ddbe"
-        ]
-      },
-      "overrides": [],
-      "dependencies": [],
-      "devDependencies": []
-    },
-    "ansi-regex@2.1.1@d41d8cd9": {
-      "id": "ansi-regex@2.1.1@d41d8cd9",
-      "name": "ansi-regex",
-      "version": "2.1.1",
-      "source": {
-        "type": "install",
-        "source": [
-          "archive:https://registry.npmjs.org/ansi-regex/-/ansi-regex-2.1.1.tgz#sha1:c3b33ab5ee360d86e0e628f0468ae7ef27d654df"
         ]
       },
       "overrides": [],
@@ -665,6 +279,31 @@
       ],
       "devDependencies": [
         "ocaml@4.8.1000@d41d8cd9", "@opam/ocamlbuild@opam:0.14.0@6ac75d03"
+      ]
+    },
+    "@opam/stdlib-shims@opam:0.1.0@d957c903": {
+      "id": "@opam/stdlib-shims@opam:0.1.0@d957c903",
+      "name": "@opam/stdlib-shims",
+      "version": "opam:0.1.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/md5/12/12b5704eed70c6bff5ac39a16db1425d#md5:12b5704eed70c6bff5ac39a16db1425d",
+          "archive:https://github.com/ocaml/stdlib-shims/releases/download/0.1.0/stdlib-shims-0.1.0.tbz#md5:12b5704eed70c6bff5ac39a16db1425d"
+        ],
+        "opam": {
+          "name": "stdlib-shims",
+          "version": "0.1.0",
+          "path": "esy.lock/opam/stdlib-shims.0.1.0"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@4.8.1000@d41d8cd9", "@opam/dune@opam:2.3.1@b10b59bf",
+        "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@4.8.1000@d41d8cd9", "@opam/dune@opam:2.3.1@b10b59bf"
       ]
     },
     "@opam/seq@opam:base@d8d7de1d": {
@@ -1102,6 +741,33 @@
         "@opam/dune@opam:2.3.1@b10b59bf"
       ]
     },
+    "@opam/logs@opam:0.7.0@1d03143e": {
+      "id": "@opam/logs@opam:0.7.0@1d03143e",
+      "name": "@opam/logs",
+      "version": "opam:0.7.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/md5/2b/2bf021ca13331775e33cf34ab60246f7#md5:2bf021ca13331775e33cf34ab60246f7",
+          "archive:https://erratique.ch/software/logs/releases/logs-0.7.0.tbz#md5:2bf021ca13331775e33cf34ab60246f7"
+        ],
+        "opam": {
+          "name": "logs",
+          "version": "0.7.0",
+          "path": "esy.lock/opam/logs.0.7.0"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@4.8.1000@d41d8cd9", "@opam/topkg@opam:1.0.1@a42c631e",
+        "@opam/ocamlfind@opam:1.8.1@ff07b0f9",
+        "@opam/ocamlbuild@opam:0.14.0@6ac75d03",
+        "@opam/lwt@opam:4.5.0@677655b4", "@opam/fmt@opam:0.8.8@01c3a23c",
+        "@opam/base-threads@opam:base@36803084",
+        "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [ "ocaml@4.8.1000@d41d8cd9" ]
+    },
     "@opam/junit@opam:2.0.2@0b7bd730": {
       "id": "@opam/junit@opam:2.0.2@0b7bd730",
       "name": "@opam/junit",
@@ -1149,6 +815,37 @@
         "ocaml@4.8.1000@d41d8cd9", "@esy-ocaml/substs@0.0.1@d41d8cd9"
       ],
       "devDependencies": [ "ocaml@4.8.1000@d41d8cd9" ]
+    },
+    "@opam/fmt@opam:0.8.8@01c3a23c": {
+      "id": "@opam/fmt@opam:0.8.8@01c3a23c",
+      "name": "@opam/fmt",
+      "version": "opam:0.8.8",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://opam.ocaml.org/cache/md5/47/473490fcfdf3ff0a8ccee226b873d4b2#md5:473490fcfdf3ff0a8ccee226b873d4b2",
+          "archive:https://erratique.ch/software/fmt/releases/fmt-0.8.8.tbz#md5:473490fcfdf3ff0a8ccee226b873d4b2"
+        ],
+        "opam": {
+          "name": "fmt",
+          "version": "0.8.8",
+          "path": "esy.lock/opam/fmt.0.8.8"
+        }
+      },
+      "overrides": [],
+      "dependencies": [
+        "ocaml@4.8.1000@d41d8cd9", "@opam/topkg@opam:1.0.1@a42c631e",
+        "@opam/stdlib-shims@opam:0.1.0@d957c903",
+        "@opam/seq@opam:base@d8d7de1d",
+        "@opam/ocamlfind@opam:1.8.1@ff07b0f9",
+        "@opam/ocamlbuild@opam:0.14.0@6ac75d03",
+        "@opam/base-unix@opam:base@87d0b2eb",
+        "@esy-ocaml/substs@0.0.1@d41d8cd9"
+      ],
+      "devDependencies": [
+        "ocaml@4.8.1000@d41d8cd9", "@opam/stdlib-shims@opam:0.1.0@d957c903",
+        "@opam/seq@opam:base@d8d7de1d"
+      ]
     },
     "@opam/easy-format@opam:1.3.2@0484b3c4": {
       "id": "@opam/easy-format@opam:1.3.2@0484b3c4",
@@ -1468,6 +1165,25 @@
         "@opam/jbuilder@opam:1.0+beta20.2@053ddcf2",
         "@opam/easy-format@opam:1.3.2@0484b3c4"
       ]
+    },
+    "@glennsl/timber@1.0.0@d41d8cd9": {
+      "id": "@glennsl/timber@1.0.0@d41d8cd9",
+      "name": "@glennsl/timber",
+      "version": "1.0.0",
+      "source": {
+        "type": "install",
+        "source": [
+          "archive:https://registry.npmjs.org/@glennsl/timber/-/timber-1.0.0.tgz#sha1:4fc919f19b7849d9877d842008b5960e5a502123"
+        ]
+      },
+      "overrides": [],
+      "dependencies": [
+        "refmterr@3.3.0@d41d8cd9", "ocaml@4.8.1000@d41d8cd9",
+        "@opam/re@opam:1.9.0@d4d5e13d", "@opam/logs@opam:0.7.0@1d03143e",
+        "@opam/fmt@opam:0.8.8@01c3a23c", "@opam/dune@opam:2.3.1@b10b59bf",
+        "@esy-ocaml/reason@3.5.2@d41d8cd9"
+      ],
+      "devDependencies": []
     },
     "@esy-ocaml/substs@0.0.1@d41d8cd9": {
       "id": "@esy-ocaml/substs@0.0.1@d41d8cd9",
