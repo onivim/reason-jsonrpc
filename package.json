@@ -22,13 +22,10 @@
     "@esy-ocaml/reason": "*",
     "refmterr": "*",
     "@reason-native/rely": "*",
-    "timber": "*"
-  },
-  "resolutions": {
-    "timber": "glennsl/timber#ae065bb"
+    "@glennsl/timber": "^1.0.0"
   },
   "devDependencies": {
     "@opam/merlin": "^3.2.2",
-    "ocaml": "4.8.1000"
+    "ocaml": "~4.8"
   }
 }
