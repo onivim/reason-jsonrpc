@@ -9,12 +9,12 @@
   "esy": {
     "build": "dune build --root . -j4",
     "install": [
-        "esy-installer reason-jsonrpc.install",
-        "esy-installer reason-jsonrpc-test.install"
+        "esy-installer #{self.target_dir}/default/reason-jsonrpc.install",
+        "esy-installer #{self.target_dir}/default/reason-jsonrpc-test.install"
     ]
   },
   "dependencies": {
-    "@opam/dune": "*",
+    "@opam/dune": "^2.0.0",
     "@opam/lwt": "^4.0.0",
     "ocaml": "^4.7.0",
     "@opam/merlin": "^3.2.2",
